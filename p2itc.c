@@ -1,3 +1,5 @@
+//Maria Gabriela de Oliveira Lelis 11621EBI013
+
 #include<stdio.h>
 unsigned long long int bin_dec(char bin[]){
 int i=0;
