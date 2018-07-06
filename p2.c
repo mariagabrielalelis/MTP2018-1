@@ -1,93 +1,194 @@
-//Maria Gabriela de Oliveira Lelis 11621EBI013
+//Maria Gabriela de Oliveira Lelis 
+//11621EBI013
 
-#include<stdio.h>
-unsigned long long int bin_dec(char bin[]){
-int i=0;
-unsigned long long int dec = 0;
-while (bin[i] != '\0'){
-dec=dec*2+(bin[i] - '0');
-i++;
-}
-return dec;
-}
-void dec_bin (unsigned int bits, int nb) {
-if (nb != 0 ){
-dec_bin(bits/2, nb-1);
-}
-printf ("%d", (bits%2));
+#include <stdio.h>
 
-}
-
-int main() {
-int opcao;
-int n=0, nb, bits;
-int bd= bin_dec;
-int valor;
-int db= dec_bin;
-char bin[256];
-while (n!=9){
-
-printf("Conversor de base numerica:\n\n");
-printf("1: Binario para Decimal \n");
-printf("2: Binario para Hexadecimal \n");
-printf("3: Hexadecimal para Decimal \n");
-printf("4: Hexadecimal para Binario \n");
-printf("5: Decimal para Binario \n");
-printf("6: Decimal para Hexadecimal \n");
-printf("7: Octal para Decimal \n");
-printf("8: Decimal para Octal \n");
-printf("Informe a opcao: \n\n");
-scanf("%d", (&opcao));
-getchar();
-
-if (opcao == 1)
+void conversor(int base_original, int base_convertida)
 {
-printf ("Informe o numero binario desejado");
-scanf ("%s", (&bd));
-printf ("%s em decimal e': %d");
+	int num = 0, num_conv = 0, i = 0, j = 0, c = 1;
+	int num_convertido[100];
+	char num_bin[100];
 
+	switch(base_original)
+	{
+		case 2:
+			printf("\nDigite o numero em binario: ");
+ 			scanf("%s", num_bin);
+ 			break;
+ 		case 8:
+ 			printf("\nDigite o numero em octal: ");
+ 			scanf("%o", &num);
+ 			break;
+ 		case 10:
+ 			printf("\nDigite o numero em decimal: ");
+ 			scanf("%i", &num);
+ 			break;
+ 		case 16:
+ 			printf("\nDigite o numero em hexadecimal: ");
+ 			scanf("%x", &num);
+ 			break;
+	}
+
+	if(base_original == 2 && base_convertida == 10)
+	{
+		for(i = 0; num_bin[i] != '\0'; i++);
+		i--;
+		for(int k = i; k >= 0; k--)
+		{
+			if(num_bin[k] == '0') num_convertido[k] = 0;
+			else if(num_bin[k] == '1') num_convertido[k] = 1;
+		}
+		j = i;
+		while(j >= 0)
+		{
+			while(c <= i-j)
+			{
+				num_convertido[j] *= 2;
+				c++;
+			}
+			num_conv += num_convertido[j];
+			c = 1;
+			j--;
+		}
+		printf("\nNumero conv: %i", num_conv);
+	}
+	else if(base_original == 2 && base_convertida == 16)
+	{
+		for(i = 0; num_bin[i] != '\0'; i++);
+		i--;
+		for(int k = i; k >= 0; k--)
+		{
+			if(num_bin[k] == '0') num_convertido[k] = 0;
+			else if(num_bin[k] == '1') num_convertido[k] = 1;
+		}
+		j = i;
+		while(j >= 0)
+		{
+			while(c <= i-j)
+			{
+				num_convertido[j] *= 2;
+				c++;
+			}
+			num_conv += num_convertido[j];
+			c = 1;
+			j--;
+		}
+		printf("\nNumero convertido: %x", num_conv);
+	}
+	else if(base_original == 16 && base_convertida == 10)
+	{
+		printf("\nNumero convertido: %d", num);
+	}
+	else if(base_original == 16 && base_convertida == 2)
+	{
+		for(i = 0; num >= 1; i++)
+		{
+			num_convertido[i] = num % base_convertida;
+			num /= base_convertida;
+		}
+
+		printf("\nNumero convertido: ");
+
+		for(i -= 1; i >= 0; i--)
+		{
+			printf("%i", num_convertido[i]);
+		}
+
+	}
+	else if(base_original == 10 && base_convertida == 2)
+	{
+		for(i = 0; num >= 1; i++)
+		{
+			num_convertido[i] = num % base_convertida;
+			num /= base_convertida;
+		}
+
+		printf("\nNumero convertido: ");
+
+		for(i -= 1; i >= 0; i--)
+		{
+			printf("%i", num_convertido[i]);
+		}
+	}
+	else if(base_original == 10 && base_convertida == 16)
+	{
+
+		printf("\nNumero convertido: %x", num);
+	}
+	else if(base_original == 8 && base_convertida == 10)
+	{
+		printf("\nNumero convertido: %d", num);
+	}
+	else if(base_original == 10 && base_convertida == 8)
+	{
+		for(i = 0; num >= 1; i++)
+		{
+			num_convertido[i] = num % base_convertida;
+			num /= base_convertida;
+		}
+			printf("\nNumero convertido: ");
+
+			for(i -= 1; i >= 0; i--)
+			{
+				printf("%i", num_convertido[i]);
+			}
+	}
 }
-  else if (opcao == 2)
-  {
-  printf ("Informe o numero binario desejado");
-  scanf ("%s", (&bd));
-  printf ("%d em hexadecimal e': %x");
-  }
-  else if (opcao == 3)
-  {
-   printf ("Informe o numero hexadecimal desejado");
-   scanf("%x, &valor);
-   printf ("%x em hexadecimal e': %d");
-   }
-   else if (opcao == 4)
-   {
-   printf ("Informe o numero hexadecimal desejado");
-   scanf ("%s", (&db));
-  printf ("%x em binario e': %s");
-  }
-  else if (opcao == 5)
-  {
-  printf ("Informe o numero decimal desejado");
-  scanf ("%s", (&db));
-  printf ("%d em binario e': %s");
-  }
-   else if (opcao == 6){
-   printf ("Informe o numero decimal desejado");
-   scanf("%d, &valor");
-   printf ("%d em hexadecimal e': %x");
-   }
-   else if (opcao == 7){
-   printf ("Informe o numero octal desejado");
-   scanf("%o, &valor");
-   printf ("%o em decimal e': %d");
-   }
 
-   else if (opcao == 8){
-   printf ("Informe o numero decimal desejado");
-   scanf("%d, &valor");
-   printf ("%o em decimal e': %d");
-   }
+int main()
+{
+    int opcao = 0;
 
-}
-return 0;
+
+    while(1)
+	{
+
+ 		printf("\n 1. Binario para Decimal");
+ 		printf("\n 2. Binario para Hexadecimal");
+ 		printf("\n 3. Hexadecimal para Decimal");
+ 		printf("\n 4. Hexadecimal para Binario");
+ 		printf("\n 5. Decimal para Hexadecimal");
+ 		printf("\n 6. Decimal para Binario");
+ 		printf("\n 7. Octal para Decimal");
+ 		printf("\n 8. Decimal para Octal");
+ 		printf("\n 0. Sair");
+
+ 		printf("\nDigite a opcao desejada: ");
+		scanf("%i", &opcao);
+
+		switch(opcao)
+		{
+			case 1:
+				conversor(2, 10);
+				break;
+			case 2:
+				conversor(2, 16);
+				break;
+			case 3:
+				conversor(16, 10);
+				break;
+			case 4:
+				conversor(16, 2);
+				break;
+			case 5:
+				conversor(10, 2);
+				break;
+			case 6:
+				conversor(10, 16);
+				break;
+			case 7:
+				conversor(8, 10);
+				break;
+			case 8:
+				conversor(10, 8);
+				break;
+			case 0:
+				return 0;
+				break;
+			default:
+				break;
+		}
+	}
+
+	return 0;
 }
