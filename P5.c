@@ -1,61 +1,72 @@
 
-//Maria Gabriela de Oliveira Lelis 11621EBI013
+//Maria Gabriela de Oliveira Lelis
+//11621EBI013
+
 
 #include <stdio.h>
 
 int main()
 {
-char str[256];
-int i = 0;
-int * pi = (int *) str, a[64],b,c;
+	char *pont;
+	char str[256];
 
-int n=0;
-char bin[256];
-while (n!=9){
+	int *ponts;
+	int i = 0, contador = 0, option = 0, text[256];
 
-printf("Codificacao de decodificacao de mensagem:\n\n");
-printf("1: Codificar \n");
-printf("2: Decodificar \n");
-printf("Informe a opcao: \n\n");
-scanf("%d", (&opcao));
-getchar();
+	do
+	{
+		do
+		{
 
+        printf("\n1.Codificar");
+			printf("\n2.Decodificar");
+			printf("\n0. Sair\n");
+			printf("\nDigite a opcao desejada: ");
+			scanf("%d", &option);
+			getchar();
+		}
+		while(option != 0 && option != 1 && option != 2);
 
-if (opcao == 1)
-{
-printf ("Informe a mensagem desejada");
-for (i=0;i<255;i++)
-{
-str[i]=getchar();
-if (str[i]==10)
-break;
+		switch(option)
+		{
+			case 0:
+				return 0;
+			case 1:
+				for(i; i < 256; i++) str[i] = '\0';
+				printf("\nDigite os caracteres caracteres: ");
+				fgets(str, 256, stdin);
+
+				for(contador=0; str[contador] != '\0'; contador++);
+
+				ponts = (int*)str;
+				printf("\nA frase codificada eh: \n");
+
+				for(i = 0; i < contador; i++) if(*(ponts + i) != 0 ) printf("%i ", *(ponts + i));
+				printf("\n\n");
+				break;
+
+			default :
+				printf("\nDigite 0 e aperte enter\n");
+				pont = (char*)text;
+				i = 0; contador = 0;
+				printf("Digite o numero desejado: \n");
+
+				do
+				{
+					scanf("%d", &contador);
+	 				getchar();
+					text[i] = contador;
+					i++;
+				}while(contador != 0);
+
+				pont = (char*)&text;
+				printf("\nOs caracteres decodificados sao: \n");
+
+				for(i = 0; i < sizeof(text) && *(pont+i) != 0; i++) printf("%c", *(pont+i));
+				printf("\n\n");
+				break;
+		}
+	}while(option != 0);
+
+	return 0;
 }
-str[i]='\0';
-if (i%4==0){
-for (b=0;b<(i/4)-1;b++)
-printf("%d, ", pi[b]);
-printf ("%d" ,pi[b]);
-}
-
-else {
-for (b=0;b<(i/4);b++)
-prinf ("%d", pi[b]);
-}
-}
-
-else if (opcao == 2)
-  {
-printf ("Informe o codigo desejado");
-for (i=0; i<64; i++){
-scanf("%d%c", &a[i],&c);
-if (c!= ',')
-break;
-}
-printf("%s", &a);
-}
-
-
-}
-return 0;
-}
-
