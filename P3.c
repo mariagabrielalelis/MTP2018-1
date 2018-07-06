@@ -1,158 +1,174 @@
-//Maria Gabriela de OLiveira Lelis 11621EBI013
+//Maria Gabriela de OLiveira Lelis 
+//11621EBI013
 
+#include <stdio.h>
 
-#include<stdio.h>
-unsigned long long int bin_dec(char bin[]){
-int i=0;
-unsigned long long int dec = 0;
-while (bin[i] != '\0'){
-dec=dec*2+(bin[i] - '0');
-i++;
-}
-return dec;
-}
-void dec_bin (unsigned int bits, int nb) {
-if (nb != 0 ){
-dec_bin(bits/2, nb-1);
-}
-printf ("%d", (bits%2));
-}
-unsigned long long int operacaoNot(char bin[]){ //funçao not
-int i;
-for(i = 0x0; i <= 0x1; i++)
+void conversor(int num)
 {
-printf("%X | %X\n", i & 0x1, (~i) & 0x1 );
-}
-}
-unsigned long long int operacaoAnd (char bin[]){ // função and
-int i, a, b;
-printf("A | B | AND\n");
-for(i = 0x00; i <= 0x03; i++) {
-a = i & 0x1;
-b = (i & 0x2) >> 1;
-2;
-printf("%X | %X | %X\n", b & 0x1, a & 0x1, a&b & 0x1);
-}
-}
+	int i = 0, j = 0, numero_convertido[100], negative = 0;
 
-unsigned long long int operacaoOr (char bin[]) { //funcao or
-int i, a, b;
-printf("A | B | OR\n");
-for(i = 0x00; i <= 0x03; i++) {
-a = i & 0x1;
-b = (i & 0x2) >> 1;
-printf("%X | %X | %X\n", b & 0x1, a & 0x1, a|b & 0x1);
-}
-}
+	if(num < 1)
+	{
+		num *= -1;
+		num -= 1;
+		negative = 1;
+	}
 
-unsigned long long int operacaoXor (char bin []) { //funcao xor
+	for(i = 0; num >= 1; i++)
+	{
+		numero_convertido[i] = num % 2;
+		num /= 2;
+	}
 
-int i, a, b;
-printf("A | B | XOR\n");
-for(i = 0x00; i <= 0x03; i++) {
-a = i & 0x1;
-b = (i & 0x2) >> 1;
-printf("%X | %X | %X\n", b & 0x1, a & 0x1, a^b & 0x1 );
-}
+	j = i;
+
+	if(negative)
+	{
+		for(j -= 1; j >= 0; j--)
+		{
+			if(numero_convertido[j] == 0) numero_convertido[j] = 1;
+			else numero_convertido[j] = 0;
+		}
+	}
+
+	for(i -= 1; i >= 0; i--) printf("%i", numero_convertido[i]);
 }
 
-
-unsigned long long int operacaoRight (char bin []){ //função right
-int n, dado;
-printf("RIGHT SHIFT\n");
-dado = 0x8000;
-n = 5;
-printf("%04X | >> %d bits | %04X\n", dado, n, dado>>n );
-printf("%04d | >> %d bits | %04d\n", dado, n, dado>>n );
-}
-
-unsigned long long int operacaoLeft (char bin []) { //função left
-
-int n, dado;
-printf("LEFT SHIFT\n");
-dado = 0x0001;
-n = 5;
-printf("%04X | << %d bits | %04X\n", dado, n, dado<<n );
-printf("%04d | << %d bits | %04d\n", dado, n, dado<<n );
-
-}
-
-typedef union {
-unsigned char numero;
-char inteiro;
-}cmp2;
-cmp2 numero;
-cmp2 inteiro;
-unsigned int aux;
-int numero.inteiro;
-if(numero.inteiro < 0) {
-aux = -numero.inteiro;
-}
-
-int main() {
-int opcao;
-int n=0, nb, bits;
-int argumento1;
-int valor;
-int numero_inteiro;
-if (numero_inteiro<0){
-printf("Logo, na memoria, %d vira:\t%X\n", numero.inteiro, numero.bin);
-}
-int db= dec_bin;
-
-char bin[256];
-
-while (n!=9){
-
-printf("Selecione a operacao atraves do menu:\n\n");
-printf("1:NOT \n");
-printf("2:AND \n");
-printf("3: OR \n");
-printf("4: XOR \n");
-printf("5: Right Shift \n");
-printf("6: Left Shift \n");
-printf("Informe a opcao: \n\n");
-scanf("%d", (&opcao));
-getchar();
-
-if (opcao == 1)
+int main()
 {
-scanf ("argumento1, argumento2",(&operacaoNot));
-printf ("argumento1 [int] (argumento1 [bin]");
-printf ("operacao argumento2 [int] (argumento2 [bin]) : resultado [int] (resultado [bin]");
+    int opcao = 0, i = 0, num = 0, num1 = 0, num2 = 0;
+
+
+	printf("\n1. NOT");
+	printf("\n2. AND");
+	printf("\n3. OR");
+	printf("\n4. XOR");
+	printf("\n5. RIGHT SHIFT");
+	printf("\n6. LEFT SHIFT");
+	printf("\nDigite a opcao desejada: ");
+	scanf("%i", &opcao);
+	getchar();
+
+	switch(opcao)
+	{
+		case 1: //NOT
+			printf("\nDigite o numero desejado: ");
+			scanf("%i", &num1);
+			printf("NOT ");
+			printf("\n%i ", num1);
+			printf("(");
+			conversor(num1);
+			printf(")");
+			num = ~num1;
+			printf(" : %i", num);
+			printf("(");
+			conversor(num);
+			printf(")");
+			break;
+		case 2: //AND
+			printf("\nDigite o primeiro numero desejado: ");
+			scanf("%i", &num1);
+			printf("\nDigite o segundo numero desejado: ");
+			scanf("%i", &num2);
+			printf("\n%i ", num1);
+			printf("(");
+			conversor(num1);
+			printf(")");
+			printf(" AND ");
+			printf("%i ", num2);
+			printf("(");
+			conversor(num2);
+			printf(")");
+			num = num1 & num2;
+			printf(" : %i", num);
+			printf("(");
+			conversor(num);
+			printf(")");
+			break;
+		case 3: //OR
+			printf("\nDigite o primeiro numero desejado: ");
+			scanf("%i", &num1);
+			printf("\nDigite o segundo numero desejado: ");
+			scanf("%i", &num2);
+			printf("\n%i ", num1);
+			printf("(");
+			conversor(num1);
+			printf(")");
+			printf(" OR ");
+			printf("%i ", num2);
+			printf("(");
+			conversor(num2);
+			printf(")");
+			num = num1 | num2;
+			printf(" : %i", num);
+			printf("(");
+			conversor(num);
+			printf(")");
+			break;
+		case 4: //XOR
+			printf("\nDigite o primeiro numero desejado: ");
+			scanf("%i", &num1);
+			printf("\nDigite o segundo numero desejado: ");
+			scanf("%i", &num2);
+			printf("\n%i ", num1);
+			printf("(");
+			conversor(num1);
+			printf(")");
+			printf(" XOR ");
+			printf("%i ", num2);
+			printf("(");
+			conversor(num2);
+			printf(")");
+			num = num1 ^ num2;
+			printf(" : %i", num);
+			printf("(");
+			conversor(num);
+			printf(")");
+			break;
+		case 5: //RIGHT
+			printf("\nDigite o primeiro numero desejado: ");
+			scanf("%i", &num1);
+			printf("\nDigite o segundo numero desejado: ");
+			scanf("%i", &num2);
+			printf("\n%i ", num1);
+			printf("(");
+			conversor(num1);
+			printf(")");
+			printf(" >> ");
+			printf("%i ", num2);
+			printf("(");
+			conversor(num2);
+			printf(")");
+			num = num1 >> num2;
+			printf(" : %i", num);
+			printf("(");
+			conversor(num);
+			printf(")");
+			break;
+		case 6: //LEFT
+			printf("\nDigite o primeiro numero desejado: ");
+			scanf("%i", &num1);
+			printf("\nDigite o segundo numero desejado: ");
+			scanf("%i", &num2);
+			printf("\n%i ", num1);
+			printf("(");
+			conversor(num1);
+			printf(")");
+			printf(" << ");
+			printf("%i ", num2);
+			printf("(");
+			conversor(num2);
+			printf(")");
+			num = num1 << num2;
+			printf(" : %i", num);
+			printf("(");
+			conversor(num);
+			printf(")");
+			break;
+		default:
+			break;
+	}
+
+    return 0;
 }
 
-else if (opcao == 2)
-{
-scanf ("argumento1,argumento2",(&operacaoAnd));
-printf ("argumento1 [int] (argumento1 [bin]");
-printf ("operacao argumento2 [int] (argumento2 [bin]) : resultado [int] (resultado[bin]");
-}
-
-else if (opcao == 3)
-{
-scanf ("argumento1,argumento2",(&operacaoOr));
-printf ("argumento1 [int] (argumento1 [bin]");
-printf ("operacao argumento2 [int] (argumento2 [bin]) : resultado [int] (resultado[bin]");
-}
-else if (opcao == 4)
-{
-scanf ("argumento1,argumento2" ,(&operacaoXor));
-printf ("argumento1 [int] (argumento1 [bin]");
-printf ("operacao argumento2 [int] (argumento2 [bin]) : resultado [int] (resultado[bin]");
-}
-else if (opcao == 5)
-{
-scanf ("argumento1,argumento2" , (&operacaoRight));
-printf ("argumento1 [int] (argumento1 [bin]");
-printf ("operacao argumento2 [int] (argumento2 [bin]) : resultado [int] (resultado[bin]");
-}
-else if (opcao == 6)
-{
-scanf ("argumento1,argumento2" , (&operacaoLeft));
-printf ("argumento1 [int] (argumento1 [bin]");
-printf ("operacao argumento2 [int] (argumento2 [bin]) : resultado [int] (resultado[bin]");
-}
-
-return 0;
-}
