@@ -1,4 +1,5 @@
-//Maria Gabriela de Oliveira Lelis 11621EBI013
+//Maria Gabriela de Oliveira Lelis 
+//11621EBI013
 
 
 #include<stdio.h>
@@ -7,7 +8,7 @@ int main() {
   char numero [256];
    int i = 0, cum = 0;
    printf ("Digite o numero desejado:");
-  scanf ("%s", &numero);
+  scanf ("%s", numero);
   getchar ();
   while(numero[i] != '\0'){
 if (numero[i] == '0' || numero[i] == '1' || numero[i] == '2' || numero[i] == '3' || numero[i] == '4'
